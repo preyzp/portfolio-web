@@ -7,19 +7,20 @@ Refined, calm, elegant minimalism. Editorial but readable, restrained motion, pr
 ## Identity
 Header wordmark `ZP.`; professional name `Zakharias Priya`; studio teaser `TednCo` is subordinate. English first, Bahasa Indonesia second.
 
-## Color tokens
-| Token | Light | Dark |
+## Color tokens — Arctic Blue & Midnight Blue
+| Semantic token | Light — Arctic Blue | Dark — Midnight Blue |
 |---|---|---|
-| background | #FAFAF9 | #111111 |
-| surface | #FFFFFF | #1C1C1C |
-| primary text | #171717 | #F5F5F4 |
-| secondary text | #57534E | #A8A29E |
-| border | #E7E5E4 | #363636 |
-| primary CTA bg | #171717 | #F5F5F4 |
-| primary CTA text | #FFFFFF | #171717 |
+| background | #F8FAFC | #09090B |
+| surface | #FFFFFF | #18181B |
+| surface-hover | #EFF6FF | #27272A |
+| border | #E2E8F0 | #3F3F46 |
+| primary | #2563EB | #3B82F6 |
+| primary-hover | #1D4ED8 | #2563EB |
+| accent-subtle | #DBEAFE | #172554 |
+| text-primary | #0F172A | #FAFAFA |
+| text-secondary | #475569 | #A1A1AA |
 
-No bright global accent. Project images can retain their original color. Green status indicator is optional only if availability is true and maintained.
-
+Use semantic CSS variables in components and portfolio preview frames. Keep the interface mostly neutral; use the primary blue for calls to action, links, active states, and keyboard focus. Preserve original product screenshot branding. Use text-primary on primary buttons in dark mode and white in light mode for readable contrast. Theme selection supports Light, Dark, and System, with System following the operating system preference by default.
 ## Type
 - Headlines: Space Grotesk; paragraph and UI: Inter.
 - Desktop display 72/1.1, H1 48/1.15, H2 36/1.2, H3 24/1.3, body 16â€“18/1.6â€“1.65, caption 13/1.5.
