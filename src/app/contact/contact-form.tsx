@@ -67,7 +67,7 @@ export function ContactForm() {
   return <section className="contact-form-panel" aria-labelledby="contact-form-heading">
     <h2 id="contact-form-heading">Tell me what you have in mind<span className="period">.</span></h2>
     <p className="contact-form-intro">A role, a product, or an idea — I’d love to hear about it.</p>
-    <p className="contact-form-note">All fields are required.</p>
+    <p className="contact-form-note">Name, email, and inquiry type are required. Message is optional.</p>
     <form method="post" action="/api/contact" noValidate onSubmit={submit} onBlur={validateField} aria-busy={pending}>
       <fieldset disabled={pending}>
         <div className="contact-field">
@@ -82,16 +82,19 @@ export function ContactForm() {
         </div>
         <div className="contact-field">
           <label htmlFor="contact-inquiry">Inquiry type</label>
-          <select id="contact-inquiry" name="inquiry" required defaultValue="" aria-invalid={!!errors.inquiry} aria-describedby={errors.inquiry ? "contact-inquiry-error" : undefined}>
-            <option value="" disabled>Select an inquiry type</option>
-            {inquiryTypes.map(type => <option key={type}>{type}</option>)}
-          </select>
+          <div className="contact-select">
+            <select id="contact-inquiry" name="inquiry" required defaultValue="" aria-invalid={!!errors.inquiry} aria-describedby={errors.inquiry ? "contact-inquiry-error" : undefined}>
+              <option value="" disabled>Select an inquiry type</option>
+              {inquiryTypes.map(type => <option key={type}>{type}</option>)}
+            </select>
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" /></svg>
+          </div>
           {errors.inquiry && <p className="contact-field-error" id="contact-inquiry-error">{errors.inquiry}</p>}
         </div>
         <div className="contact-field">
-          <label htmlFor="contact-message">Message</label>
-          <textarea id="contact-message" name="message" rows={5} required minLength={10} maxLength={2000} aria-invalid={!!errors.message} aria-describedby={`contact-message-hint${errors.message ? " contact-message-error" : ""}`} />
-          <p className="contact-field-hint" id="contact-message-hint">10–2000 characters. Your details are used to respond to your inquiry.</p>
+          <label htmlFor="contact-message">Message <span className="contact-optional">(Optional)</span></label>
+          <textarea id="contact-message" name="message" rows={5} minLength={10} maxLength={2000} aria-invalid={!!errors.message} aria-describedby={`contact-message-hint${errors.message ? " contact-message-error" : ""}`} />
+          <p className="contact-field-hint" id="contact-message-hint">Optional. If provided, use 10–2000 characters after trimming. Your details are used to respond to your inquiry.</p>
           {errors.message && <p className="contact-field-error" id="contact-message-error">{errors.message}</p>}
         </div>
         <div className="contact-honeypot" aria-hidden="true">

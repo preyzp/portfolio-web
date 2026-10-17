@@ -12,6 +12,9 @@
 .project-facts dt { color:var(--text-secondary); font-size:13px; }
 .project-facts dd { margin:6px 0 0; }
 .case-study { max-width:960px; }
+.case-study>.project-facts:has(+ .project-live-cta) { margin-bottom:0; }
+.case-study>.project-live-cta { display:flex; margin:24px 0 40px; }
+@media (max-width:680px) { .case-study>.project-live-cta { margin-block:20px 32px; } }
 .case-study .portfolio-intro h1 { font-size:clamp(34px,5vw,56px); max-width:1000px; margin-top:20px; }
 .case-study .portfolio-intro>.eyebrow { margin-top:32px; }
 .case-image { display:block; width:100%; height:auto; background:var(--surface-hover); border-radius:12px; }

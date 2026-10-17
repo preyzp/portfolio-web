@@ -53,7 +53,7 @@ export async function POST(request: Request) {
   const from = process.env.CONTACT_FROM_EMAIL?.trim();
   const to = process.env.CONTACT_TO_EMAIL?.trim() || "priyazakharias@gmail.com";
   if (!apiKey || !from || !isContactEmail(from) || !isContactEmail(to)) return json({ error: unavailable }, 503);
-  const text = `Name: ${values.name}\nEmail: ${values.email}\nInquiry: ${values.inquiry}\n\n${values.message}`;
+  const text = `Name: ${values.name}\nEmail: ${values.email}\nInquiry: ${values.inquiry}\n\n${values.message || "No message provided"}`;
   const email = { from: `Portfolio <${from}>`, to: [to], reply_to: values.email, subject: `Portfolio inquiry: ${values.inquiry}`, text, html: `<pre style="font-family:sans-serif;white-space:pre-wrap">${escapeHtml(text)}</pre>` };
   const idempotencyKey = createHash("sha256").update(input.requestId + JSON.stringify(email)).digest("hex");
   try {

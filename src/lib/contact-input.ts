@@ -11,6 +11,6 @@ export function validateContact(input: unknown): { values: ContactValues; errors
   if (!values.name || values.name.length > 100 || /[\p{Cc}\p{Cf}]/u.test(values.name)) errors.name = "Enter your full name (up to 100 characters).";
   if (!isContactEmail(values.email)) errors.email = "Enter a valid email address.";
   if (!inquiryTypes.some(type => type === values.inquiry)) errors.inquiry = "Choose an inquiry type.";
-  if (values.message.length < 10 || values.message.length > 2000 || /[\p{Cc}\p{Cf}]/u.test(values.message.replace(/[\n\t]/g, ""))) errors.message = "Write a message between 10 and 2000 characters, without control characters.";
+  if ((data.message !== undefined && typeof data.message !== "string") || (values.message && (values.message.length < 10 || values.message.length > 2000 || /[\p{Cc}\p{Cf}]/u.test(values.message.replace(/[\n\t]/g, ""))))) errors.message = "Leave the message empty, or write 10–2000 characters without control characters.";
   return { values, errors };
 }

@@ -81,7 +81,7 @@ export default async function ProjectPage({
           </dl>
         )}
         {project.liveUrl && (
-          <p>
+          <p className="project-live-cta">
             <ProjectLiveLink liveUrl={project.liveUrl} />
           </p>
         )}

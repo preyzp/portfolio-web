@@ -30,8 +30,14 @@ function request(data = valid, headers = {}) {
 test('validates message boundaries, email headers, types, and enum values', () => {
   const { input: { validateContact } } = loadContact();
   assert.deepEqual(validateContact(valid).errors, {});
+  for (const message of [undefined, '', ' \n\t ']) {
+    const result = validateContact({ ...valid, message });
+    assert.deepEqual(result.errors, {});
+    assert.equal(result.values.message, '');
+  }
+  assert.equal(validateContact({ ...valid, message: '  A valid message.  ' }).values.message, 'A valid message.');
   for (const message of ['a'.repeat(10), 'a'.repeat(2000)]) assert.equal(validateContact({ ...valid, message }).errors.message, undefined);
-  for (const message of ['short', 'a'.repeat(2001), 'hello\u0000world']) assert.ok(validateContact({ ...valid, message }).errors.message);
+  for (const message of ['short', '  short  ', 'a'.repeat(2001), 'hello\u0000world', null, 123, {}]) assert.ok(validateContact({ ...valid, message }).errors.message);
   for (const email of ['bad', 'test@example.org\r\nBcc:other@example.org', 'x@<bad>.org']) assert.ok(validateContact({ ...valid, email }).errors.email);
   assert.ok(validateContact({ ...valid, inquiry: 'Injected' }).errors.inquiry);
   assert.ok(validateContact({ ...valid, name: {} }).errors.name);
@@ -46,6 +52,9 @@ test('rejects invalid JSON, oversized requests, honeypots, bad fields and foreig
     [{ ...valid, website: 'bot.example' }, {}, 400],
     [{ ...valid, email: 'invalid' }, {}, 422],
     [{ ...valid, inquiry: 'unexpected' }, {}, 422],
+    [{ ...valid, message: 'short' }, {}, 422],
+    [{ ...valid, message: 'a'.repeat(2001) }, {}, 422],
+    [{ ...valid, message: {} }, {}, 422],
     [{ ...valid, requestId: 'bad-id' }, {}, 400],
     [valid, { origin: 'https://other.example' }, 403],
     [valid, { 'content-type': 'text/plain' }, 415],
@@ -122,6 +131,15 @@ test('provider contract: trusted sender, Reply-To, escaped HTML, idempotency and
     assert.ok(email.html.includes('&lt;script&gt;'));
     assert.ok(!email.html.includes('<script>') && !email.html.includes('<img'));
     assert.equal(calls[0].headers['Idempotency-Key'], calls[1].headers['Idempotency-Key']);
+    for (const message of [undefined, '', ' \n\t ', '  A valid message.  ']) {
+      const response = await loadContact().route.POST(request({ ...valid, message }));
+      assert.equal(response.status, 200);
+      const sent = JSON.parse(calls.at(-1).body);
+      const expected = message?.trim() || 'No message provided';
+      assert.ok(sent.text.endsWith('\n\n' + expected));
+      assert.ok(sent.html.includes(expected));
+      assert.equal((await response.json()).ok, true);
+    }
     for (const mock of [async () => Response.json({ message: 'Provider private details' }, { status: 403 }), async () => Response.json({}), async () => { throw new Error('timeout'); }]) {
       global.fetch = mock;
       const response = await loadContact().route.POST(request());
