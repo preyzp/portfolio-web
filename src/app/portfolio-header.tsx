@@ -34,7 +34,7 @@ function ThemeIcon({ theme }: { theme: Theme }) {
 
 function ResumeControl({ resumeHref }: PortfolioHeaderProps) {
   if (resumeHref) {
-    return <a className="nav-cta resume-cta" href={resumeHref} download>Download resume <span aria-hidden="true">↓</span></a>;
+    return <a className="nav-cta resume-cta" href={resumeHref} download="Zakharias_Priya_Resume.pdf">Download resume <span aria-hidden="true">↓</span></a>;
   }
 
   return <button className="nav-cta resume-cta" type="button" disabled title="A verified resume PDF is not available yet">Download resume <span aria-hidden="true">↓</span></button>;
@@ -88,6 +88,13 @@ function ThemePicker({
     <div
       className={`theme-picker${mobile ? " theme-picker-mobile" : ""}`}
       ref={pickerRef}
+      onKeyDown={(event) => {
+        if (open && event.key === "Escape") {
+          event.stopPropagation();
+          setOpen(false);
+          triggerRef.current?.focus();
+        }
+      }}
       onBlur={(event) => {
         if (!(event.relatedTarget instanceof Node) || !event.currentTarget.contains(event.relatedTarget)) {
           setOpen(false);
@@ -133,6 +140,7 @@ export function PortfolioHeader({ resumeHref }: PortfolioHeaderProps) {
   const router = useRouter();
   const [theme, setTheme] = useState<Theme>("system");
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuToggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (pathname === "/" && scrollHomeAfterLogoNavigation) {
@@ -142,22 +150,39 @@ export function PortfolioHeader({ resumeHref }: PortfolioHeaderProps) {
   }, [pathname]);
 
   useEffect(() => {
-    const saved = localStorage.getItem("zp-theme") as Theme | null;
-    const initial = saved && themes.some((option) => option.value === saved) ? saved : "system";
+    let initial: Theme = "system";
+    try {
+      const saved = localStorage.getItem("zp-theme");
+      if (themes.some((option) => option.value === saved)) initial = saved as Theme;
+    } catch {
+      // Restricted storage uses the system preference, just like first paint.
+    }
     const themeTimeout = window.setTimeout(() => setTheme(initial), 0);
     document.documentElement.dataset.theme = initial;
     return () => window.clearTimeout(themeTimeout);
   }, []);
 
   function changeTheme(value: Theme) {
-    setTheme(value);
-    document.documentElement.dataset.theme = value;
-    localStorage.setItem("zp-theme", value);
+    let applied = value;
+    try {
+      localStorage.setItem("zp-theme", value);
+    } catch {
+      applied = "system";
+    }
+    setTheme(applied);
+    document.documentElement.dataset.theme = applied;
   }
 
   function closeMenu() { setMenuOpen(false); }
 
-  return <header className="site-header"><div className="nav-wrap wrap">
+  return <header className="site-header" onKeyDown={(event) => {
+    if (menuOpen && event.key === "Escape") {
+      event.preventDefault();
+      event.stopPropagation();
+      closeMenu();
+      menuToggleRef.current?.focus();
+    }
+  }}><div className="nav-wrap wrap">
     <Link className="wordmark" href="/" aria-label="Zakharias Priya home" onNavigate={(event) => {
       closeMenu();
       if (pathname === "/") {
@@ -169,11 +194,11 @@ export function PortfolioHeader({ resumeHref }: PortfolioHeaderProps) {
       }
     }}>ZP<span>.</span></Link>
     <nav className={`nav-links${menuOpen ? " is-open" : ""}`} id="primary-navigation" aria-label="Main navigation">
-      <Link href="/work" onClick={closeMenu}>Work</Link><Link href="/about" onClick={closeMenu}>About</Link><Link href="/#contact" onClick={closeMenu}>Contact</Link>
+      <Link href="/work" onClick={closeMenu}>Work</Link><Link href="/about" onClick={closeMenu}>About</Link><Link href="/contact" onClick={closeMenu}>Contact</Link>
       <div className="mobile-controls"><ThemePicker theme={theme} onChange={changeTheme} mobile /></div>
       <div className="mobile-menu-actions"><SocialLinks /><ResumeControl resumeHref={resumeHref} /></div>
     </nav>
     <div className="nav-actions"><ThemePicker theme={theme} onChange={changeTheme} /><SocialLinks /><ResumeControl resumeHref={resumeHref} /></div>
-    <button className="menu-toggle" aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"} aria-expanded={menuOpen} aria-controls="primary-navigation" onClick={() => setMenuOpen(!menuOpen)}><span /><span /></button>
+    <button ref={menuToggleRef} type="button" className="menu-toggle" aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"} aria-expanded={menuOpen} aria-controls="primary-navigation" onClick={() => setMenuOpen(!menuOpen)}><span /><span /></button>
   </div></header>;
 }

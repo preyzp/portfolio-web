@@ -7,6 +7,7 @@ industry: "Construction ERP / B2B SaaS"
 role: "UI/UX Designer"
 summary: "The mobile experience for IFCA's construction ERP — sub-contracts, supply chain and tenders, with a spreadsheet-grade bill of quantities made usable on a phone."
 featured: true
+featuredOrder: 1
 published: true
 cover: "/images/portfolio/contractx/01-cover.webp"
 thumbnail: "/images/portfolio/contractx/06-thumbnail.webp"

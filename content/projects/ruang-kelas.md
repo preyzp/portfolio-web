@@ -6,7 +6,8 @@ platform: "Mobile"
 industry: "EdTech"
 role: "Mobile UI/UX Designer"
 summary: "A two-sided mobile app that connects teachers and parents — attendance, grades, assignments, notes and messages — in one shared daily view of every child."
-featured: false
+featured: true
+featuredOrder: 3
 published: true
 order: 8
 status: "Case study · qualitative"

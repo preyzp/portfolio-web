@@ -7,6 +7,7 @@ industry: "Construction ERP / B2B SaaS"
 role: "UI/UX Designer"
 summary: "The mobile cost-and-contract side of a construction ERP — budgets, contracts, progress claims, invoices and unit costs — with desktop-grade financial tables made reviewable on a phone."
 featured: true
+featuredOrder: 2
 published: true
 cover: "/images/portfolio/projectx/01-cover.webp"
 thumbnail: "/images/portfolio/projectx/06-thumbnail.webp"

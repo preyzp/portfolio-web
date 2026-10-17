@@ -6,7 +6,8 @@ platform: "Mobile"
 industry: "PropTech / Residential"
 role: "UI/UX Designer"
 summary: "A resident super-app for Kemang Village — bills, facility booking, requests, permits, utilities and community brought into one calm, bilingual mobile experience."
-featured: false
+featured: true
+featuredOrder: 4
 published: true
 cover: "/images/portfolio/kemang-village-residences/01-cover.webp"
 thumbnail: "/images/portfolio/kemang-village-residences/06-thumbnail.webp"

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { homeTitle, pageMetadata, siteDescription, siteUrl } from "@/lib/seo";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
@@ -13,8 +14,8 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Zakharias Priya — Product Designer & Web Developer",
-  description: "Zakharias Priya designs thoughtful digital products, scalable design systems, and modern websites.",
+  metadataBase: siteUrl,
+  ...pageMetadata(homeTitle, siteDescription, "/"),
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

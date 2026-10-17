@@ -1,0 +1,66 @@
+.hero-ui-composition {
+  position: absolute;
+  top: 340px;
+  right: 0;
+  width: min(35%, 420px);
+  padding: 14px 16px 30px;
+  pointer-events: none;
+  user-select: none;
+  color: var(--text-primary);
+  font-family: var(--font-body), sans-serif;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.hero-ui-dashboard, .hero-ui-floating {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+}
+
+.hero-ui-dashboard { overflow: hidden; border-radius: 12px; }
+.hero-ui-topbar { display: flex; align-items: center; gap: 8px; padding: 12px; border-bottom: 1px solid var(--border); font-weight: 500; }
+.hero-ui-appMark { display: grid; grid-template-columns: repeat(2, 4px); gap: 2px; }
+.hero-ui-appMark i { width: 4px; height: 4px; border-radius: 1px; background: var(--primary); }
+.hero-ui-sample { margin-left: auto; color: var(--text-secondary); font-size: 8px; font-weight: 400; }
+.hero-ui-body { display: flex; min-height: 162px; }
+.hero-ui-sidebar { display: flex; flex-direction: column; gap: 14px; width: 38px; flex: none; padding: 17px 12px; border-right: 1px solid var(--border); background: var(--background); }
+.hero-ui-sidebar span { height: 8px; border: 1px solid var(--border); border-radius: 2px; }
+.hero-ui-sidebar .hero-ui-activeNav { background: var(--accent-subtle); border-color: var(--primary); }
+.hero-ui-content { flex: 1; min-width: 0; padding: 14px; }
+.hero-ui-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 12px; font-weight: 500; }
+.hero-ui-heading span { color: var(--text-secondary); font-size: 7px; font-weight: 400; }
+.hero-ui-summaries { display: flex; gap: 7px; }
+.hero-ui-summaries > div { display: flex; flex: 1; flex-direction: column; align-items: flex-start; gap: 6px; padding: 9px; border: 1px solid var(--border); border-radius: 5px; }
+.hero-ui-summaries i, .hero-ui-summaries b, .hero-ui-summaries span { display: block; height: 3px; width: 60%; border-radius: 2px; background: var(--border); }
+.hero-ui-summaries b { height: 6px; width: 44%; background: var(--text-secondary); opacity: .65; }
+.hero-ui-summaries span { width: 75%; background: var(--accent-subtle); }
+.hero-ui-chart { margin-top: 12px; color: var(--text-secondary); font-size: 8px; }
+.hero-ui-chart svg { display: block; width: 100%; height: 50px; margin-top: 6px; overflow: visible; }
+.hero-ui-grid { stroke: var(--border); stroke-width: .7; }
+.hero-ui-plot { stroke: var(--primary); stroke-width: 2; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.hero-ui-floating { position: absolute; border-radius: 9px; }
+.hero-ui-palette { top: 0; right: 0; width: 136px; padding: 12px; transform: translateY(-35%); }
+.hero-ui-label { display: block; font-size: 9px; font-weight: 500; }
+.hero-ui-caption { display: block; margin-top: 3px; color: var(--text-secondary); font-size: 8px; }
+.hero-ui-swatches { display: flex; gap: 5px; margin: 10px 0 8px; }
+.hero-ui-swatches i { width: 23px; height: 23px; border: 1px solid var(--border); border-radius: 5px; background: var(--background); }
+.hero-ui-swatches i:nth-child(2) { background: var(--accent-subtle); }
+.hero-ui-swatches i:nth-child(3) { background: var(--primary); }
+.hero-ui-swatches i:nth-child(4) { background: var(--text-primary); }
+.hero-ui-component { left: 0; bottom: 9px; display: flex; align-items: center; gap: 9px; padding: 12px; }
+.hero-ui-componentIcon { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 7px; color: var(--primary); background: var(--accent-subtle); font-size: 18px; }
+.hero-ui-componentCheck { margin-left: 8px; color: var(--primary); }
+
+@media (768px <= width < 1200px) {
+  .hero-ui-composition { top: 310px; padding-inline: 8px; }
+  .hero-ui-chart svg { height: 40px; }
+  .hero-ui-palette { width: 120px; padding: 10px; }
+  .hero-ui-swatches i { width: 20px; height: 20px; }
+}
+
+@media (width < 960px) {
+  .hero-ui-composition { position: relative; top: auto; right: auto; width: 300px; max-width: 100%; margin: 28px auto 0; padding: 0; }
+  .hero-ui-floating { display: none; }
+  .hero-ui-body { min-height: 154px; }
+}

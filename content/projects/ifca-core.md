@@ -4,8 +4,8 @@ slug: "ifca-core"
 category: "Design System"
 summary: "A component and token library covering interface foundations, icons, and reusable patterns."
 artwork: "ifca"
-published: true
-featured: true
+published: false
+featured: false
 order: 6
 status: "Preview · details being verified"
 featuredOrder: 3

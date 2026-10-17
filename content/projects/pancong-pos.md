@@ -7,7 +7,8 @@ industry: "Food & Beverage"
 role: "UI/UX Design & Web Development"
 summary: "A point-of-sale application for managing orders, menus, payments, and daily sales."
 status: "in-development"
-featured: false
+featured: true
+featuredOrder: 5
 published: true
 cover: "/images/portfolio/pancong-pos/01-cover.webp"
 thumbnail: "/images/portfolio/pancong-pos/06-thumbnail.webp"

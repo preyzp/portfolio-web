@@ -9,9 +9,10 @@ export function ProjectArtwork({ artwork }: { artwork: string }) {
   </div>;
 }
 
-export function ProjectCard({ project, featured = false }: { project: Project; featured?: boolean }) {
+export function ProjectCard({ project, featured = false, headingLevel = 3 }: { project: Project; featured?: boolean; headingLevel?: 2 | 3 }) {
+  const Heading = headingLevel === 2 ? "h2" : "h3";
   return <Link className="project-card portfolio-card" href={`/work/${project.slug}`}>
     {project.thumbnail ? <div className="project-thumbnail"><Image src={project.thumbnail} alt={`${project.title} design preview`} fill sizes="(max-width: 680px) calc(100vw - 40px), (max-width: 1200px) 50vw, 580px" style={{ objectFit: "contain" }} /></div> : <ProjectArtwork artwork={project.artwork} />}
-    <div className="project-info"><span className="project-type">{project.category}{project.platform && ` · ${project.platform}`}</span><div className="project-title"><h3>{featured ? project.featuredTitle || project.title : project.title}</h3><span className="project-arrow rounded-full shrink-0 aspect-square" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17 17 7M7 7h10v10" /></svg></span></div><p>{featured ? project.featuredSummary || project.summary : project.summary}</p><span className="project-status">{project.status}</span></div>
+    <div className="project-info"><span className="project-type">{project.category}{project.platform && ` · ${project.platform}`}</span><div className="project-title"><Heading>{featured ? project.featuredTitle || project.title : project.title}</Heading><span className="project-arrow rounded-full shrink-0 aspect-square" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17 17 7M7 7h10v10" /></svg></span></div><p>{featured ? project.featuredSummary || project.summary : project.summary}</p><span className="project-status">{project.status}</span></div>
   </Link>;
 }

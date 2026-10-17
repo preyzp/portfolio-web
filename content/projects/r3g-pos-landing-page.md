@@ -8,7 +8,8 @@ role: "UI/UX Design & Web Development"
 summary: "A responsive marketing website introducing R3G Software POS to prospective customers."
 status: "live"
 liveUrl: "https://r3gpos.web.id/"
-featured: false
+featured: true
+featuredOrder: 6
 published: true
 cover: "/images/portfolio/r3g-pos-landing-page/01-cover.webp"
 thumbnail: "/images/portfolio/r3g-pos-landing-page/06-thumbnail.webp"

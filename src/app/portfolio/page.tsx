@@ -1,1 +1,5 @@
-export { default, metadata } from "../work/page";
+import { permanentRedirect } from "next/navigation";
+
+export default function PortfolioPage() {
+  permanentRedirect("/work");
+}
